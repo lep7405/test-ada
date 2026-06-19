@@ -160,9 +160,9 @@ try {
           ratingHtml= blockStar + ratingHtml;
         }
         if(rate.total == 0){
-          return `<div class="lai-content-star lai-none-rating" role="img" aria-label="No reviews yet"><div class="lai-wrap-block-star">${ratingHtml}</div></div>`;
+          return `<div class="lai-content-star lai-none-rating" role="button" aria-label="No reviews yet"><div class="lai-wrap-block-star">${ratingHtml}</div></div>`;
         }
-        return `<div class="lai-content-star" role="img" aria-label="${textAverage} out of 5 stars (${rate.total} ${rate.total === 1 ? 'review' : 'reviews'})"><div class="lai-wrap-block-star">${ratingHtml}</div></div>`;
+        return `<div class="lai-content-star" role="button" aria-label="${textAverage} out of 5 stars (${rate.total} ${rate.total === 1 ? 'review' : 'reviews'})"><div class="lai-wrap-block-star">${ratingHtml}</div></div>`;
       };
       let iconStar= {
         'star' : {

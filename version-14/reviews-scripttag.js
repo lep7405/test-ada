@@ -49,10 +49,10 @@ try {
         return true;
       };
       let defaultSetting= {
-        starColor: checkSetting(infoShopJson.starColor) ? infoShopJson.starColor : "#fa4f56",
+        starColor: checkSetting(infoShopJson.starColor) ? infoShopJson.starColor : "#f8b6b9",
         useAutoRTL: checkSetting(infoShopJson.useAutoRTL) ? infoShopJson.useAutoRTL : false,
-        host : checkSetting(infoShopJson.hostServer) ? infoShopJson.hostServer : 'https://reviews-importer.test',
-        cdn : checkSetting(infoShopJson.host) ? infoShopJson.host : 'https://reviews-importer.test',
+        host : checkSetting(infoShopJson.hostServer) ? infoShopJson.hostServer : 'https://phuoc-s3-lai.s3.us-east-1.amazonaws.com',
+        cdn : checkSetting(infoShopJson.host) ? infoShopJson.host : 'https://phuoc-s3-lai.s3.us-east-1.amazonaws.com',
         show_2_widget : checkSetting(infoShopJson.show_2_widget) ? infoShopJson.show_2_widget : false,
         minJs :  checkSetting(infoShopJson.minJs) ? infoShopJson.minJs : false,
         hasCssCustom :  checkSetting(infoShopJson.hasCssCustom) ? infoShopJson.hasCssCustom : false,

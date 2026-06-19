@@ -278,16 +278,16 @@ const ajaxModule= (function($) {
     let itemPerLoad = helper.getValueLoadPerPage();
     let newCount = replace ? 0 : Math.min(blockFirstReviewsJson.length, itemPerLoad);
     let blockReviews = createBlockReviews(blockFirstReviewsJson,true);
+    // Track existing item count so handlers can focus the first newly appended review
+    let existingCount = replace ? 0 : $('#reviewImporter .scm-row .item').length;
     $(document).trigger('afterAjaxGetReviews', {
       item: blockReviews,
       replace,
-      newCount
+      newCount,
+      existingCount
     });
     if (loadMoreStatus === 1) {
       $('.scm-pagination-load-more').addClass('visible');
-      if (!$('.scm-sort-title').is(':focus')) {
-        $('#scm-btn-load-more').focus();
-      }
     } else {
       $('.scm-pagination-load-more').removeClass('visible');
     }

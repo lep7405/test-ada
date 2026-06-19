@@ -1,0 +1,289 @@
+.header-default-5{
+  &.popup-write-review{
+    max-width: 680px;
+    .scm-write-review .scm-col-6, .scm-write-review .scm-col-12 {
+      padding: 0 8px;
+    }
+    .scm-row {
+      margin-right: -8px;
+      margin-left: -8px;
+    }
+    .result-reviews p {
+      position: static;
+      padding-bottom: 26px;
+    }
+    .scm-close-popup{
+      display: block;
+    }
+
+    > div{
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    form{
+      width: calc( 100% - 60px );
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .scm-write-review .input-rating p{
+      font-size: 15px;
+      margin-right: 22px;
+    }
+    .scm-write-review h2 {
+      font-size: 20px;
+      margin-bottom: 21px;
+    }
+    .scm-write-review{
+      padding: 20px 0 25px;
+      border-radius: 6px;
+    }
+  }
+  .content-toggle-reviews .scm-write-review{
+    max-width: 600px;
+    width: 100%;
+    #scm-form-review{
+      padding-bottom: 15px;
+      margin-top: 32px;
+    }
+  }
+  .content-toggle-reviews{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .scm-rating{
+    display: none;
+  }
+  .scm-write-review .input-rating {
+    align-items: center;
+  }
+  .write-rating-star-group .block-item-star{
+    svg{
+      width: 16.103px;
+      height: 15.361px;
+      margin-right: 0px;
+    }
+  }
+  .scm-write-review{
+    h2{
+      text-align: center;
+      display: none;
+    }
+    .input-rating{
+      justify-content: center;
+    }
+  }
+  .scm-write-review label[for=scm-upload]{
+    padding: 0px 0;
+    border: 1px dashed #807171;
+    min-height: 37px;
+    border-radius: 6px;
+    color: #000;
+  }
+  .scm-btn-submit{
+    width: auto;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 0px 17px !important;
+    height: 35px;
+    margin-top: 15px;
+    border-radius: 8px;
+  }
+  .scm-write-review textarea{
+    min-height: 120px;
+  }
+  .scm-write-review .scm-col-6, .scm-write-review .scm-col-12 {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+  }
+  .scm-write-review input[type=text], .scm-write-review input[type=email], .scm-write-review textarea{
+    border: 1px solid #807171;
+    border-radius: 4px;
+    padding: 9px 5px;
+  }
+  .scm-write-review input[type=text], .scm-write-review input[type=email], .scm-write-review textarea {
+    &::-webkit-input-placeholder { /* Edge */
+      font-size: 13px;
+      color: #a5a3a3;
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      font-size: 13px;
+      color: #a5a3a3;
+    }
+
+    &::placeholder {
+      font-size: 13px;
+      color: #a5a3a3;
+    }
+  }
+  .toggle-write-review .scm-write-review{
+    h2{
+      font-size: 17px;
+    }
+  }
+  .scm-write-review{
+    .author-email{
+      .author{
+        padding-right: 3px;
+      }
+      .email{
+        padding-left: 3px;
+      }
+    }
+
+  }
+  .write-review-button, .scm-qa-ask-question-btn{
+    font-weight: bold;
+    fill: transparent;
+    border: 1px solid #707070;
+    border-radius: 0px;
+    padding: 4px 11px 5px;
+    font-size: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+  }
+  .scm-qa-ask-question-btn:hover {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .scm-write-review .input-rating p{
+    font-weight: bold;
+  }
+  .block-star-avenge{
+    svg{
+      width: 22px;
+      height: 22px;
+      fill: var(--star-color);
+      margin-right: 2px;
+    }
+  }
+  .header{
+    position: relative;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    &:after{
+      content: "";
+      height: 1px;
+      width: calc( 100% - 30px );
+      background: #c7c5c5;
+      display: block;
+      position: absolute;
+      bottom: -13px;
+      left: 15px;
+    }
+  }
+  .left-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .block-star-avenge{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 14px;
+    line-height: 16px;
+    flex-wrap: wrap;
+    margin-top: -5px;
+  }
+  .block-star-avenge .lai-group-star {
+    position: relative;
+    display: flex;
+    margin-right: 2px;
+    height: 22px;
+    font-size: 0;
+    margin-bottom: 0 !important;
+    margin-top: 1px;
+    line-height: 22px;
+  }
+  .text-number{
+    margin-top: 2px;
+  }
+  .block-star-avenge .lai-group-star .lai-star-rating {
+    position: absolute;
+    overflow: hidden;
+  }
+  .block-star-avenge .lai-group-star .lai-star-rating .lai-star-rating-none {
+    display: inline-flex;
+  }
+  .write-rating-star-group {
+    margin-top: 3px;
+  }
+  .block-star-avenge svg path{
+    fill: var(--star-color);
+  }
+  .block-star-avenge svg.svg_none path{
+    fill: #f1f1f1;
+  }
+  .info{
+    font-size: 36px;
+    color: var(--text-textPrimary);
+    display: flex;
+    align-items: center;
+    line-height: 36px;
+  }
+  #average{
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  #total-review{
+    margin-right: 0px;
+    font-size: 12px;
+  }
+}
+.header-default-5.no-reviews .block-star-avenge svg{
+  fill: none;
+  stroke: var(--star-color);
+}
+@media (max-width: 768px) {
+  body.popup-write-review{
+    &.header-default-5 .scm-write-review .author-email .author {
+      padding: 0 8px;
+    }
+    &.header-default-5 .scm-write-review .author-email .email {
+      padding: 0 8px;
+    }
+  }
+  .header-default-5 .scm-write-review .author-email .author {
+    padding: 0 15px;
+  }
+  .header-default-5 .scm-write-review .author-email .email {
+    padding: 0 15px;
+  }
+}
+.title-lai{
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: center;
+}
+.header-default-5 .header:after{
+  display: none;
+}
+.header-default-5 .container-discount-write-button{
+  text-align: center;
+}
+.header-default-5 .container-discount-button{
+  margin-top: 15px;
+  margin-bottom: 0px
+}
+.container-button{
+  text-align: center;
+}
+html[dir=rtl] .header-default-5{
+  #average {
+    margin-right: 0px;
+    margin-left: 10px;
+  }
+}
+.header-default-5.no-reviews-product.no-reviews{
+  #reviewImporter {
+    margin: 0;
+  }
+}

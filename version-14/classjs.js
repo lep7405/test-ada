@@ -1559,6 +1559,15 @@ bodyLayoutAbtract.prototype.layoutModule= (function() {
               grid.append($items).imagesLoaded(function(){
                 grid.masonry( 'appended', $items, true );
                 helper.changeHeight();
+                // Move keyboard focus to first newly loaded review (ADA: WCAG 2.4.3 Focus Order)
+                var allItems = grid.find('.item');
+                var firstNew = allItems.eq(opts.existingCount);
+                if (firstNew.length) {
+                  if (!firstNew.attr('tabindex')) {
+                    firstNew.attr('tabindex', '-1');
+                  }
+                  firstNew[0].focus();
+                }
               });
             }
             helper.loadLazyLoadImage(grid,configMasonry);
@@ -1612,6 +1621,15 @@ bodyLayoutAbtract.prototype.layoutModule= (function() {
           $('#reviewImporter .scm-row').html(opts.item);
         } else {
           $('#reviewImporter .scm-row').append(opts.item);
+          // Move keyboard focus to first newly loaded review (ADA: WCAG 2.4.3 Focus Order)
+          var allItems = $('#reviewImporter .scm-row .item');
+          var firstNew = allItems.eq(opts.existingCount);
+          if (firstNew.length) {
+            if (!firstNew.attr('tabindex')) {
+              firstNew.attr('tabindex', '-1');
+            }
+            firstNew[0].focus();
+          }
         }
         helper.loadLazyLoadImage($('body'));
         helper.callCheckErrorLoadImage();
@@ -2170,8 +2188,11 @@ CardBodyAbtract.prototype.createStarBlocks= function (number){
   for (let i = number; i < 5; i++) {
     blockStar = blockStar + helper.iconStar[type].none;
   }
-
-  return blockStar;
+  // ADA (WCAG 1.1.1): hide individual decorative SVGs, expose rating via accessible wrapper
+  let hiddenStars = blockStar.replace(/<svg/g, '<svg aria-hidden="true"');
+  let outOf5 = languageModule.getLanguageByKey('box_reviews-average_info');
+  let starLabel = `${number} ${outOf5}`;
+  return `<div role="img" aria-label="${starLabel}">${hiddenStars}</div>`;
 };
 CardBodyAbtract.prototype.getVideoArrayByCheckConditions= function(reviewItem){
   let arrayVideo= reviewItem.videos;
@@ -2266,7 +2287,14 @@ CardBodyAbtract.prototype.itemHtml= function(value){
     videos : videos,
     cfAnswers
   };
-  return this.createItemHtml(opt);
+  let result = this.createItemHtml(opt);
+  // ADA (WCAG 1.3.1): inject aria-label into article so SR announces reviewer + rating on focus
+  let authorName = helper.escapeString(value.author || '');
+  let reviewByLabel = languageModule.getLanguageByKey('accessibility-review_by_label').replace('{{author}}', authorName);
+  let outOf5 = languageModule.getLanguageByKey('box_reviews-average_info');
+  let starRatingLabel = `${value.rating} ${outOf5}`;
+  let ariaLabel = `${reviewByLabel}, ${starRatingLabel}`;
+  return result.replace(' role="article"', ` role="article" aria-label="${ariaLabel}"`);
 };
 function CardBodyImageText(){
   CardBodyAbtract.call(this);

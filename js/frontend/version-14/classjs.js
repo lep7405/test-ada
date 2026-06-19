@@ -111,7 +111,7 @@ HeaderLayoutAbtract.prototype.createWriteReviewsButton= function(type= ''){
       html= `<button class="write-review-button popup-write ${classStyle}"><span>${languageModule.getLanguageByKey('box_write-title_write')}</span></button>`;
       break;
     default :
-      html= `<button class="write-review-button toggle-write ${classStyle}"><span>${languageModule.getLanguageByKey('box_write-title_write')}</span></button>`;
+      html= `<button class="write-review-button toggle-write ${classStyle}" aria-expanded="false"><span>${languageModule.getLanguageByKey('box_write-title_write')}</span></button>`;
       break;
   }
 

@@ -1,5 +1,4 @@
 try {
-    console.log('hello1');
   var SMARTIFYAPPS = SMARTIFYAPPS || {};
   SMARTIFYAPPS.rv = SMARTIFYAPPS.rv || {};
   SMARTIFYAPPS.rv.performanceNow = SMARTIFYAPPS.rv.performanceNow || function() {
@@ -537,12 +536,24 @@ try {
         }
       };
       function addActionClickStarForEl(item){
+        if(!item.getAttribute('tabindex')) {
+          item.setAttribute('tabindex', '0');
+        }
         item.addEventListener('click', event => {
           SMARTIFYAPPS.rv.scmReviewsRate.dispatchEventBeforeScrollToWidgetReviews();
           setTimeout(function(){
             SMARTIFYAPPS.rv.scmReviewsRate.scrollWidgetReview();
           }, 10);
-        })
+        });
+        item.addEventListener('keydown', function(e) {
+          if(e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            SMARTIFYAPPS.rv.scmReviewsRate.dispatchEventBeforeScrollToWidgetReviews();
+            setTimeout(function(){
+              SMARTIFYAPPS.rv.scmReviewsRate.scrollWidgetReview();
+            }, 10);
+          }
+        });
       }
       function constructor() {
         addStyleOnHead();

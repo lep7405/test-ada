@@ -145,20 +145,21 @@ function sortReviewsModule() {
     icon= helper.iconScm.chev_down;
   }
   this.html= `<div class="container-sort"><div class="scm-sort">
-        <div class="scm-sort-title" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scm-sort-listbox" tabindex="0"><span class="title-text">${languageModule.getLanguageByKey('sort_box-reviews')}</span>
+        <div class="scm-sort-title" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="scm-sort-listbox" aria-activedescendant="scm-sort-option-date" tabindex="0"><span class="title-text">${languageModule.getLanguageByKey('sort_box-reviews')}</span>
           <span class="icon-choose">
                 ${icon}
           </span>
           </div>
           <ul id="scm-sort-listbox" class="scm-sort-list" role="listbox" aria-label="${languageModule.getLanguageByKey('sort_box-reviews')}">
-            <li role="option" aria-selected="false" option="date">${languageModule.getLanguageByKey('sort_box-date')}</li>
-            <li role="option" aria-selected="false" option="content">${languageModule.getLanguageByKey('sort_box-content')}</li>
-            <li role="option" aria-selected="false" option="photo">${languageModule.getLanguageByKey('sort_box-pictures')}</li>
-            <li role="option" aria-selected="false" option="rating">${languageModule.getLanguageByKey('sort_box-rating')}</li>
+            <li id="scm-sort-option-date" role="option" aria-selected="false" option="date">${languageModule.getLanguageByKey('sort_box-date')}</li>
+            <li id="scm-sort-option-content" role="option" aria-selected="false" option="content">${languageModule.getLanguageByKey('sort_box-content')}</li>
+            <li id="scm-sort-option-photo" role="option" aria-selected="false" option="photo">${languageModule.getLanguageByKey('sort_box-pictures')}</li>
+            <li id="scm-sort-option-rating" role="option" aria-selected="false" option="rating">${languageModule.getLanguageByKey('sort_box-rating')}</li>
           </ul>
         </div></div>`;
   let close= function() {
     $(".scm-sort-list").removeClass('scm-show-list');
+    $('.scm-sort-title').attr('aria-expanded', 'false');
   }
   this.init =function(){
     let parent= $("#sort-reviews-position");
@@ -175,9 +176,13 @@ function sortReviewsModule() {
     $('.scm-sort-title').on('keydown', function(e) {
       if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
+        var willExpand = !$('.scm-sort-list').hasClass('scm-show-list');
         $(this).trigger('click');
-        if($('.scm-sort-list').hasClass('scm-show-list')) {
+        if(willExpand) {
+          $(this).attr('aria-expanded', 'true');
           $('.scm-sort-list li').first().focus();
+        } else {
+          $(this).attr('aria-expanded', 'false');
         }
       } else if(e.key === 'ArrowDown') {
         e.preventDefault();
@@ -197,14 +202,18 @@ function sortReviewsModule() {
       var index = items.index(this);
       if(e.key === 'ArrowDown') {
         e.preventDefault();
-        items.eq(index + 1 < items.length ? index + 1 : 0).focus();
+        var next = items.eq(index + 1 < items.length ? index + 1 : 0);
+        next.focus();
+        $('.scm-sort-title').attr('aria-activedescendant', next.attr('id'));
       } else if(e.key === 'ArrowUp') {
         e.preventDefault();
         if(index === 0) {
           $('.scm-sort-list').removeClass('scm-show-list');
           $('.scm-sort-title').attr('aria-expanded', 'false').focus();
         } else {
-          items.eq(index - 1).focus();
+          var prev = items.eq(index - 1);
+          prev.focus();
+          $('.scm-sort-title').attr('aria-activedescendant', prev.attr('id'));
         }
       } else if(e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -219,22 +228,26 @@ function sortReviewsModule() {
       let itemSort= $('.scm-sort-list li');
       let textTittle= $(this).text();
       $('.title-text').text(textTittle);
-      itemSort.removeClass('active').attr('aria-selected', 'false');
-      $(this).addClass('active').attr('aria-selected', 'true');
-      $('.scm-sort-title').attr('aria-expanded', 'false');
+      itemSort.removeClass('active').attr('aria-selected', 'false').each(function() {
+        $(this).attr('aria-label', $(this).text());
+      });
+      $(this).addClass('active').attr('aria-selected', 'true').attr('aria-label', textTittle + ', selected');
+      $('.scm-sort-title').attr('aria-activedescendant', $(this).attr('id')).attr('aria-expanded', 'false').focus();
       close();
-      helper.addLoader();
-      $('.scm-pagination-load-more').removeClass('visible');
-      helper.changeHeight();
-      const divValue = $('#scm-review-importer-value');
-      divValue.attr('data-pagecurrent', 1);
-      const rate = divValue.attr('data-rate');
-      let total=  $('#scm-review-importer-value').attr(`data-rate${rate}-total`);
-      if(!rate || rate == 'null'){
-        total=  $('#scm-review-importer-value').attr(`data-pr-total`);
-      }
-      helper.callChangePaginate(total);
-      ajaxModule.callAjaxGetReview(true,rate);
+      setTimeout(function() {
+        helper.addLoader();
+        $('.scm-pagination-load-more').removeClass('visible');
+        helper.changeHeight();
+        const divValue = $('#scm-review-importer-value');
+        divValue.attr('data-pagecurrent', 1);
+        const rate = divValue.attr('data-rate');
+        let total=  $('#scm-review-importer-value').attr(`data-rate${rate}-total`);
+        if(!rate || rate == 'null'){
+          total=  $('#scm-review-importer-value').attr(`data-pr-total`);
+        }
+        helper.callChangePaginate(total);
+        ajaxModule.callAjaxGetReview(true,rate);
+      }, 800);
     });
     $('body').addClass("has-sort");
   };
@@ -272,7 +285,9 @@ const ajaxModule= (function($) {
     });
     if (loadMoreStatus === 1) {
       $('.scm-pagination-load-more').addClass('visible');
-      $('#scm-btn-load-more').focus();
+      if (!$('.scm-sort-title').is(':focus')) {
+        $('#scm-btn-load-more').focus();
+      }
     } else {
       $('.scm-pagination-load-more').removeClass('visible');
     }
